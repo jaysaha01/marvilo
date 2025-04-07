@@ -60,7 +60,7 @@ This app helps users manage their finances with ease — track income and expens
 - **Backend-as-a-Service**: [Supabase](https://supabase.com/)
 - **Charts**: [Recharts](https://recharts.org/)
 
----
+---------------
 
 
 
