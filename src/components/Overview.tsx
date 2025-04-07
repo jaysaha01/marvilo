@@ -14,8 +14,7 @@ import { useAuth } from "@/context/AuthContext";
 import moment from "moment";
 import Achart from "./Achart";
 import { myAuth } from "../../hooks/myAuth";
-import Loading from '../app/loading'
-
+import Loading from "../app/loading";
 
 interface mytransationtype {
   amount: number;
@@ -29,7 +28,6 @@ interface mytransationtype {
 }
 
 const Overview = () => {
-
   const theme = useTheme();
   const { user } = useAuth();
   const { loading } = myAuth();
@@ -102,14 +100,23 @@ const Overview = () => {
     <div className="overviewbx">
       <Typography variant="h2" gutterBottom>
         Hi,{" "}
-        {user?.identities[0].identity_data.full_name
-          ? user?.identities[0].identity_data.full_name
-          : user?.identities[0].identity_data.email}{" "}
+        {user?.identities && user.identities.length > 0
+          ? user?.identities[0]?.identity_data?.full_name ||
+            user?.identities[0]?.identity_data?.email
+          : "User"}{" "}
         👋
       </Typography>
       {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> */}
 
-      <div className="myoverviewbx" style={{ border: theme.palette.mode === "dark" ? "2px solid #333" : "2px solid #a8a4a44a", }}>
+      <div
+        className="myoverviewbx"
+        style={{
+          border:
+            theme.palette.mode === "dark"
+              ? "2px solid #333"
+              : "2px solid #a8a4a44a",
+        }}
+      >
         <h5>✨ Marvilo – Smart Expense Tracker</h5>
         <p>
           Marvilo helps you track income & expenses, set monthly budgets, create
@@ -118,48 +125,45 @@ const Overview = () => {
         </p>
       </div>
 
-      {
-        transactions.length==0 ? <Loading/> : 
+      {transactions.length == 0 ? (
+        <Loading />
+      ) : (
         <>
+          <Box sx={{ flexGrow: 1 }} className="gridbx">
+            <Grid container spacing={2}>
+              <Grid size={{ xs: 12, md: 4 }}>
+                <Mycard type="Income" amount={income} />
+              </Grid>
+              <Grid size={{ xs: 12, md: 4 }}>
+                <Mycard type="Expenses" amount={expenses} />
+              </Grid>
+              <Grid size={{ xs: 12, md: 4 }}>
+                <Mycard type="Balance" amount={balance} />
+              </Grid>
+            </Grid>
+          </Box>
 
-<Box sx={{ flexGrow: 1 }} className="gridbx">
-        <Grid container spacing={2}>
-          <Grid size={{ xs: 12, md: 4 }}>
-            <Mycard type="Income" amount={income} />
-          </Grid>
-          <Grid size={{ xs: 12, md: 4 }}>
-            <Mycard type="Expenses" amount={expenses} />
-          </Grid>
-          <Grid size={{ xs: 12, md: 4 }}>
-            <Mycard type="Balance" amount={balance} />
-          </Grid>
-        </Grid>
-      </Box>
-
-      <Box sx={{ flexGrow: 1 }} className="gridbxtwo">
-        <Grid container spacing={2}>
-          <Grid size={{ xs: 12, md: 6 }}>
-            <div className="chatbx">
-              <Achart mydata={incomedata} />
-            </div>
-          </Grid>
-          <Grid size={{ xs: 12, md: 6 }}>
-            <Mybarchart mydata={expensedata} />
-          </Grid>
-        </Grid>
-      </Box>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid size={{ xs: 12, md: 12 }}>
-            <Mytable tdata={recentTransactions} />
-          </Grid>
-        </Grid>
-      </Box>
+          <Box sx={{ flexGrow: 1 }} className="gridbxtwo">
+            <Grid container spacing={2}>
+              <Grid size={{ xs: 12, md: 6 }}>
+                <div className="chatbx">
+                  <Achart mydata={incomedata} />
+                </div>
+              </Grid>
+              <Grid size={{ xs: 12, md: 6 }}>
+                <Mybarchart mydata={expensedata} />
+              </Grid>
+            </Grid>
+          </Box>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+              <Grid size={{ xs: 12, md: 12 }}>
+                <Mytable tdata={recentTransactions} />
+              </Grid>
+            </Grid>
+          </Box>
         </>
-      }
-
-      
-      
+      )}
     </div>
   );
 };

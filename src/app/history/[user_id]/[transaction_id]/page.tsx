@@ -7,14 +7,17 @@ import {
   Container,
   Box,
   FormControl,
-  InputLabel,
   MenuItem,
   Select,
 } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import { useParams } from "next/navigation";
-import { rendermyCatagory, renderMyTransactions, editTransaction } from "../../../../../service/apiTracker";
+import {
+  rendermyCatagory,
+  renderMyTransactions,
+  editTransaction,
+} from "../../../../../service/apiTracker";
 import { myAuth } from "../../../../../hooks/myAuth";
 
 type Inputs = {
@@ -31,13 +34,9 @@ const Page = () => {
   const user_id = params.user_id || "";
   const transaction_id = params.transaction_id || "";
 
-  // ✅ Handle missing parameters gracefully
-  if (!user_id || !transaction_id) {
-    console.error("Missing required parameters: user_id or transaction_id");
-    return <p>Error: Missing required parameters.</p>;
-  }
-
-  const [myCategory, setMyCategory] = useState<{ id: string; name: string }[]>([]);
+  const [myCategory, setMyCategory] = useState<{ id: string; name: string }[]>(
+    []
+  );
   const [selectedTtype, setSelectedTtype] = useState(""); // ✅ Ensuring controlled state
   const [selectedCategory, setSelectedCategory] = useState(""); // ✅ Ensuring controlled state
 
@@ -70,7 +69,7 @@ const Page = () => {
           setValue("mydate", transaction.created_at.split("T")[0]); // Extract date only
 
           // ✅ Set controlled values for Select components
-          setSelectedTtype(transaction.type || ""); 
+          setSelectedTtype(transaction.type || "");
           setSelectedCategory(transaction.category || "");
         }
       } catch (error) {
@@ -87,20 +86,38 @@ const Page = () => {
     toast.success("Transaction updated successfully!");
   };
 
-  const { loading } = myAuth();
+   myAuth();
+
+  // ✅ Handle missing parameters gracefully
+  if (!user_id || !transaction_id) {
+    console.error("Missing required parameters: user_id or transaction_id");
+    return <p>Error: Missing required parameters.</p>;
+  }
+
   return (
     <div className="addtransactions">
       <Container maxWidth="sm">
-        <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+        />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <h1>Edit Transaction</h1>
           <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-            
             {/* ✅ Transaction Type - Controlled from the start */}
             <FormControl fullWidth error={!!errors.ttype} sx={{ mb: 2 }}>
               {/* <InputLabel>Transaction Type</InputLabel> */}
               <Select
-                {...register("ttype", { required: "Transaction Type is required!" })}
+                {...register("ttype", {
+                  required: "Transaction Type is required!",
+                })}
                 value={selectedTtype}
                 onChange={(e) => setSelectedTtype(e.target.value)}
               >
@@ -111,22 +128,22 @@ const Page = () => {
               {errors.ttype && <span>{errors.ttype.message}</span>}
             </FormControl>
 
-            <TextField 
-              // label="Note" 
-              error={!!errors.note} 
-              sx={{ mb: 2 }} 
-              fullWidth  
-              {...register("note", { required: "Note is required!" })} 
+            <TextField
+              // label="Note"
+              error={!!errors.note}
+              sx={{ mb: 2 }}
+              fullWidth
+              {...register("note", { required: "Note is required!" })}
             />
             {errors.note && <span>{errors.note.message}</span>}
 
-            <TextField 
-              // label="Amount" 
-              error={!!errors.amount} 
-              sx={{ mb: 2 }} 
-              fullWidth  
-              type="number" 
-              {...register("amount", { required: "Amount is required!" })} 
+            <TextField
+              // label="Amount"
+              error={!!errors.amount}
+              sx={{ mb: 2 }}
+              fullWidth
+              type="number"
+              {...register("amount", { required: "Amount is required!" })}
             />
             {errors.amount && <span>{errors.amount.message}</span>}
 
@@ -134,7 +151,9 @@ const Page = () => {
             <FormControl fullWidth error={!!errors.mycategory} sx={{ mb: 2 }}>
               {/* <InputLabel>Category</InputLabel> */}
               <Select
-                {...register("mycategory", { required: "Category is required!" })}
+                {...register("mycategory", {
+                  required: "Category is required!",
+                })}
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
@@ -148,16 +167,22 @@ const Page = () => {
               {errors.mycategory && <span>{errors.mycategory.message}</span>}
             </FormControl>
 
-            <TextField 
-              // label="Date" 
-              type="date" 
-              fullWidth 
-              {...register("mydate", { required: "Date is required!" })} 
+            <TextField
+              // label="Date"
+              type="date"
+              fullWidth
+              {...register("mydate", { required: "Date is required!" })}
               sx={{ mb: 2 }}
             />
             {errors.mydate && <span>{errors.mydate.message}</span>}
 
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} disabled={isSubmitting}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              disabled={isSubmitting}
+            >
               {isSubmitting ? "Submitting..." : "Update Transaction"}
             </Button>
           </Box>

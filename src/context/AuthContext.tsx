@@ -1,30 +1,37 @@
 "use client";
+
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "../../service/supabase";
-import { useEffect, useState, createContext, useContext } from "react";
+import type { User, Session } from "@supabase/supabase-js";
 
-// Context for user authentication
-const AuthContext = createContext<any>(null);
+// Define the type for AuthContext
+interface AuthContextType {
+  user: User | null;
+}
 
+// Create context with default undefined value
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// AuthProvider component
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser();
-      setUser(data?.user);
+      setUser(data.user ?? null);
     };
 
     getUser();
 
-    // Listen for auth changes
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user || null);
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (_event, session: Session | null) => {
+        setUser(session?.user ?? null);
       }
     );
 
     return () => {
-      authListener.subscription.unsubscribe();
+      listener?.subscription?.unsubscribe();
     };
   }, []);
 
@@ -35,5 +42,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-// Hook to access authentication context
-export const useAuth = () => useContext(AuthContext);
+// Custom hook to use the auth context
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};

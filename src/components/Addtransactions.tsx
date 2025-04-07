@@ -14,7 +14,7 @@ import {
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { gettingUser } from "../../service/apiUser";
 import { addTransations, rendermyCatagory } from "../../service/apiTracker";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import { ToastContainer, toast } from "react-toastify";
 import { myAuth } from "../../hooks/myAuth";
 
@@ -27,7 +27,7 @@ type Inputs = {
 };
 
 const Addtransactions = () => {
-  let [mycatagory, setMycatagory] = useState<{ id: string; name: string }[]>(
+  const [mycatagory, setMycatagory] = useState<{ id: string; name: string }[]>(
     []
   );
 
@@ -38,8 +38,8 @@ const Addtransactions = () => {
      
       if (mydata?.id) {
         rendermyCatagory().then((elm) => {
-          let myallcatagory = elm;
-          let myfilterdcatagory = myallcatagory?.filter((elm) => {
+          const myallcatagory = elm;
+          const  myfilterdcatagory = myallcatagory?.filter((elm) => {
             return elm.user_id === null || elm.user_id === mydata?.id;
           });
           setMycatagory(myfilterdcatagory ?? []);
@@ -60,7 +60,7 @@ const Addtransactions = () => {
       if (user?.id) {
         addTransations(data, user?.id)
           .then((response) => {
-            let res = response;
+            const res = response;
 
             if (res?.length) {
               toast.success("Transaction added Successfully !", {
@@ -94,7 +94,7 @@ const Addtransactions = () => {
     });
   };
 
-  const { loading } = myAuth();
+  myAuth();
 
   return (
     <div className="addtransactions">

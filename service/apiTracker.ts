@@ -67,7 +67,7 @@ export const rendermyCatagory = async () => {
   if (error) {
     console.log("List is not rendering", error);
   } else {
-    console.log("List Render Successfully", catgorydb);
+    // console.log("List Render Successfully", catgorydb);
   }
   return catgorydb;
 };

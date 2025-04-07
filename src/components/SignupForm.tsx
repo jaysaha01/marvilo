@@ -1,7 +1,5 @@
 "use client";
 
-// components/SignupForm.tsx
-import React, { useState } from "react";
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { addUser } from "../../service/apiUser";
@@ -17,7 +15,6 @@ const SignupForm: React.FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors, isSubmitting },
   } = useForm<Inputs>();
 
@@ -25,7 +22,7 @@ const SignupForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      let cratedata = await addUser(data);
+      const cratedata = await addUser(data);
 
       if (cratedata.user?.role == "authenticated") {
         router.push("/signin");

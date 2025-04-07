@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from 'react';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
@@ -6,7 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { enterUser } from '../../service/apiUser';
 import { toast, ToastContainer } from 'react-toastify';
 import { useRouter } from "next/navigation";
-import Loginbtn from './Loginbtn'
+import Loginbtn from './Loginbtn';
 
 type Inputs = {
   email: string,
@@ -14,16 +14,14 @@ type Inputs = {
 };
 
 const SignInForm: React.FC = () => {
-  const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<Inputs>();
-
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<Inputs>();
   const router = useRouter();
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
-
     try {
-      let cratedata = await enterUser(data);
+      const cratedata = await enterUser(data);
       if (cratedata.session?.access_token) {
-        router.push("/")
+        router.push("/");
       } else {
         toast.error('Failed to Login 😢 !', {
           position: "top-right",
@@ -34,13 +32,15 @@ const SignInForm: React.FC = () => {
           draggable: true,
           progress: undefined,
           theme: "dark",
-          });
+        });
       }
-    } catch { }
+    } catch {
+      // Optional: Add error toast if needed
+    }
   };
 
-  function handleClick(){
-    router.push("/signup")
+  function handleClick() {
+    router.push("/signup");
   }
 
   return (
@@ -56,8 +56,8 @@ const SignInForm: React.FC = () => {
         draggable
         pauseOnHover
         theme="colored"
-
       />
+
       <Box
         sx={{
           marginTop: 8,
@@ -73,8 +73,8 @@ const SignInForm: React.FC = () => {
         <Typography component="h5" variant="h5">
           Please enter your details
         </Typography>
-        <Loginbtn/>
-        
+
+        <Loginbtn />
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
           <TextField
@@ -92,8 +92,9 @@ const SignInForm: React.FC = () => {
             <span>Email is required !</span>
           )}
           {errors?.email?.type === "pattern" && (
-            <span>email Ex: jsmith@company.com</span>
+            <span>Email example: jsmith@company.com</span>
           )}
+
           <TextField
             margin="normal"
             fullWidth
@@ -103,12 +104,6 @@ const SignInForm: React.FC = () => {
             autoComplete="off"
             {...register("password")}
           />
-          {/* {errors?.password?.type === "required" && (
-            <span>Password is required !</span>
-          )}
-          {errors?.password?.type === "pattern" && (
-            <span>password Ex: Abc@1234</span>
-          )} */}
 
           <Button
             type="submit"
@@ -120,11 +115,11 @@ const SignInForm: React.FC = () => {
           >
             {isSubmitting ? "Submitting..." : "Submit"}
           </Button>
-          
 
           <Typography variant="subtitle1" gutterBottom>
-          You don't have an account ? <a onClick={handleClick} style={{cursor:"pointer"}}>Sign Up</a>
-                    </Typography>
+            You don&rsquo;t have an account?{" "}
+            <a onClick={handleClick} style={{ cursor: "pointer" }}>Sign Up</a>
+          </Typography>
         </Box>
       </Box>
     </Container>

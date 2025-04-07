@@ -43,7 +43,7 @@ const Mybarchart: React.FC<AchartProps> = ({ mydata }) => {
       dataKey="amount"
       fill="#3457D5"
       activeBar={<Rectangle fill="pink" stroke="blue" />}
-      label={({ x, y, width, value, index }) => {
+      label={({ x, y, width, index }) => {
         const category = mydata[index]?.categary;
         return (
           <text

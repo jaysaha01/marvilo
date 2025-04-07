@@ -31,7 +31,7 @@ interface mybudgetproptype {
 const Budgetcard: React.FC<mybudgetproptype> = ({ data, setpBudget }) => {
   const { user } = useAuth();
 
-  let userid = user?.id;
+  const userid = user?.id;
 
   function handleDelete(mycname: string) {
     toast.success("Budget deleted Successfully!", {

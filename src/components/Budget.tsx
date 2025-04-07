@@ -21,15 +21,14 @@ type Inputs = {
 
 import {
   TextField,
-  Container,
   FormControl,
   InputLabel,
   MenuItem,
 } from "@mui/material";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
-import { addTransations, rendermyCatagory } from "../../service/apiTracker";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import {rendermyCatagory } from "../../service/apiTracker";
+import Select from "@mui/material/Select";
 import moment from "moment";
 
 interface mytransationtype {
@@ -62,6 +61,39 @@ export interface totalBugetype {
   mydate: string; 
 }
 
+interface filteredType{
+  categary: string;
+  modified_date: string;
+  mdate: string;
+  type: string;
+  total_amount: number;
+};
+
+interface filteredType {
+  categary: string;
+  modified_date: string;
+  total_amount: number;
+  mdate: string;
+  type: string;
+}
+
+interface budgetgrouptype{
+  categary:string,
+  modified_date:string,
+  mdate:string,
+  type:string,
+  total_amount:number
+}
+
+interface groupkicu {
+  categary: string;
+  modified_date: string;
+  total_amount: number;
+  mdate: string;
+  type: string; 
+}
+
+  
 const style = {
   position: "absolute",
   top: "50%",
@@ -77,15 +109,15 @@ const style = {
 const Budget = () => {
   const theme = useTheme();
   const [transactions, setTransactions] = useState<mytransationtype[]>([]);
-  const [ftransaction, setftransaction] = useState<mytransationtype[]>([]);
+  const [, setftransaction] = useState<mytransationtype[]>([]);
   const [budget, setBudget] = useState<mybudgetype[] | []>([]);
 
-  const [filteredTransactions, setFilteredTransactions] = useState<any[]>([]); //Modified transaction arrary object
-  const [filteredBudget, setFilteredBudget] = useState<any[]>([]); //Modified Budget arrary object
+  const [filteredTransactions, setFilteredTransactions] = useState<filteredType[]>([]); //Modified transaction arrary object
+  const [filteredBudget, setFilteredBudget] = useState<filteredType[]>([]); //Modified Budget arrary object
 
   const [budgetAnaysis, setBudgetAnaysis] = useState<totalBugetype[]>([]); //Budget analysis report
 
-  let [mycatagory, setMycatagory] = useState<{ id: string; name: string }[]>(
+  const [, setMycatagory] = useState<{ id: string; name: string }[]>(
     []
   );
 
@@ -119,8 +151,8 @@ const Budget = () => {
           ) ?? [];
 
         rendermyCatagory().then((elm) => {
-          let myallcatagory = elm;
-          let myfilterdcatagory = myallcatagory?.filter((elm) => {
+          const myallcatagory = elm;
+          const myfilterdcatagory = myallcatagory?.filter((elm) => {
             return elm.user_id === null || elm.user_id === mydata?.id;
           });
 
@@ -143,13 +175,11 @@ const Budget = () => {
 
   //Addin extra column of modified data like "March 2025" and Find out categroywise and month wise total tracsactions using moment js---------------
 
-  function makeModifiedTransaction() {
-    const groupedData: any = {};
-
+  useEffect(() => {
+    const groupedData: { [key: string]: budgetgrouptype } = {};
     transactions.forEach((txn) => {
       const modifiedDate = moment(txn.created_at).format("MMMM YYYY");
       const key = `${txn.categary}-${txn.type}-${modifiedDate}-${txn.created_at}`;
-
       if (!groupedData[key]) {
         groupedData[key] = {
           categary: txn.categary,
@@ -159,82 +189,52 @@ const Budget = () => {
           total_amount: 0,
         };
       }
-
       groupedData[key].total_amount += txn.amount;
     });
-
     setFilteredTransactions(Object.values(groupedData));
-  }
-
-  useEffect(() => {
-    makeModifiedTransaction();
   }, [transactions]);
 
+  
   //Addin extra column of modified data like "March 2025" and Find out categroywise and month wise total budget using moment js---------------
 
-  function makeModifiedBudget() {
-    const budgetgroupedData: any = {};
-
-    budget.forEach((elm) => {
-      const modifiedDate = moment(elm.created_at).format("MMMM YYYY");
-      const key = `${elm.category}-${modifiedDate}-${elm.created_at}`;
-
-      if (!budgetgroupedData[key]) {
-        budgetgroupedData[key] = {
-          categary: elm.category,
-          modified_date: modifiedDate,
-          total_amount: 0,
-          mdate: elm.created_at,
-        };
-      }
-
-      budgetgroupedData[key].total_amount += elm.amount;
-    });
-
-    setFilteredBudget(Object.values(budgetgroupedData));
-  }
 
   useEffect(() => {
+    function makeModifiedBudget() {
+  
+      const budgetgroupedData: { [key: string]:groupkicu } = {};
+      
+  
+      budget.forEach((elm) => {
+        const modifiedDate = moment(elm.created_at).format("MMMM YYYY");
+        const key = `${elm.category}-${modifiedDate}-${elm.created_at}`;
+  
+        if (!budgetgroupedData[key]) {
+          budgetgroupedData[key] = {
+            categary: String(elm.category),
+            modified_date: modifiedDate,
+            total_amount: 0,
+            mdate: elm.created_at,
+            type: "expense" 
+          };
+        }
+  
+        budgetgroupedData[key].total_amount += elm.amount;
+      });
+      
+  
+      setFilteredBudget(Object.values(budgetgroupedData));
+
+      
+    }
+    
     makeModifiedBudget();
   }, [budget]);
 
+  console.log(filteredBudget, '🥞🧀🍗')
+
   //Create Analysis data.....................
 
-  const createBudget = () => {
-    const expenseTransactions = filteredTransactions.filter(
-      (txn) => txn.type === "expense"
-    );
 
-    const budgetAnalysisArray = filteredBudget.map((budgetItem) => {
-      const spentItem = expenseTransactions.find(
-        (txn) =>
-          txn.categary === budgetItem.categary &&
-          txn.modified_date === budgetItem.modified_date
-      );
-
-  
-      const spentAmount = spentItem ? spentItem.total_amount : 0;
-      const budgetAmount = budgetItem.total_amount;
-      const remaining =
-      budgetAmount - spentAmount > 0 ? budgetAmount - spentAmount : 0;
-      const percentage = Math.round( (spentAmount / budgetAmount) * 100)  > 100 ? 100 : Math.round( (spentAmount / budgetAmount) * 100);
-      const isOverBudget = spentAmount > budgetAmount;
-
-
-      return {
-        budgetAmount,
-        category: budgetItem.categary,
-        isOverBudget,
-        month: budgetItem.modified_date,
-        percentage: `${percentage.toFixed(0)}%`,
-        remaining,
-        spentAmount,
-        mydate: budgetItem.mdate,
-      };
-    });
-
-    setBudgetAnaysis(budgetAnalysisArray);
-  };
 
 
   const {
@@ -262,12 +262,51 @@ const Budget = () => {
 
   useEffect(() => {
     if (filteredTransactions.length > 0 && filteredBudget.length > 0) {
+      const createBudget = () => {
+        const expenseTransactions = filteredTransactions.filter(
+          (txn) => txn.type === "expense"
+        );
+    
+        const budgetAnalysisArray = filteredBudget.map((budgetItem) => {
+          const spentItem = expenseTransactions.find(
+            (txn) =>
+              txn.categary === budgetItem.categary &&
+              txn.modified_date === budgetItem.modified_date
+          );
+    
+      
+          const spentAmount = spentItem ? spentItem.total_amount : 0;
+          const budgetAmount = budgetItem.total_amount;
+          const remaining =
+          budgetAmount - spentAmount > 0 ? budgetAmount - spentAmount : 0;
+          const percentage = Math.round( (spentAmount / budgetAmount) * 100)  > 100 ? 100 : Math.round( (spentAmount / budgetAmount) * 100);
+          const isOverBudget = spentAmount > budgetAmount;
+    
+    
+          return {
+            budgetAmount,
+            category: budgetItem.categary,
+            isOverBudget,
+            month: budgetItem.modified_date,
+            percentage: `${percentage.toFixed(0)}%`,
+            remaining,
+            spentAmount,
+            mydate: budgetItem.mdate,
+          };
+        });
+    
+        setBudgetAnaysis(budgetAnalysisArray);
+      };
+
       createBudget();
     }
   }, [filteredTransactions, filteredBudget]);
 
 
-  const { loading } = myAuth();
+  myAuth();
+
+  console.log("fdfdfdfsfdsf🍕🍕🍕🍕", filteredBudget)
+
 
   return (
     <div className="budgetchild">
@@ -407,7 +446,7 @@ const Budget = () => {
               </Modal>
             </Grid2>
 
-            {budgetAnaysis.map((elm, i) => {
+            {budgetAnaysis.map((elm) => {
               return (
                 <Grid2
                   size={{ xs: 12, md: 4 }}

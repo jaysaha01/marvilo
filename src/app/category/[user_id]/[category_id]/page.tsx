@@ -52,7 +52,7 @@ const Page: React.FC = () => {
     fetchData();
   }, [user_id, category_id, setValue]);
 
-  const { loading } = myAuth();
+  myAuth();
 
   return (
     <Container

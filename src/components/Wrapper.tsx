@@ -23,15 +23,14 @@ import Link from "next/link";
 import Logout from "../components/Logout";
 import { useAuth } from "@/context/AuthContext";
 import Avatar from "@mui/material/Avatar";
-import { deepOrange, deepPurple } from "@mui/material/colors";
+import { deepPurple } from "@mui/material/colors";
 import Modal from "@mui/material/Modal";
-import PollIcon from '@mui/icons-material/Poll';
-import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
-import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
-import CategoryIcon from '@mui/icons-material/Category';
-import ReceiptIcon from '@mui/icons-material/Receipt';
-import WalletIcon from '@mui/icons-material/Wallet';
-
+import PollIcon from "@mui/icons-material/Poll";
+import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
+import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
+import CategoryIcon from "@mui/icons-material/Category";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import WalletIcon from "@mui/icons-material/Wallet";
 
 const drawerWidth = 240;
 
@@ -117,7 +116,6 @@ const Drawer = styled(MuiDrawer, {
   ],
 }));
 
-
 export default function Wrapper({ children }: { children: React.ReactNode }) {
   const theme = useTheme();
   const { user } = useAuth();
@@ -126,6 +124,9 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
   const handleClose = () => msetOpen(false);
   const [open, setOpen] = React.useState(true);
 
+  const identity = user?.identities?.[0]?.identity_data
+  
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -133,8 +134,6 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-
 
   return (
     <Box sx={{ display: "flex" }} className="wrapper">
@@ -146,14 +145,13 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-
             //ffdfdffdsfsfsf
-            style={{background:"red"}}
-            
-            sx={
-              
-              
-              [
+            style={{
+              backgroundColor:
+                theme.palette.mode === "dark" ? "#2e2e2ee3" : "#a1a1a1e3",
+          
+            }}
+            sx={[
               {
                 marginRight: 5,
               },
@@ -163,15 +161,14 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
             <MenuIcon />
           </IconButton>
           <div className="boxflex">
-
             <div className="logo">
               <img src="./logo.png" />
             </div>
             <div>
-              {user?.identities[0]?.identity_data?.picture ? (
+              {identity?.picture ? (
                 <Avatar
                   alt={"ffdf"}
-                  src={user.identities[0].identity_data.picture}
+                  src={identity?.picture}
                   onClick={handleOpen}
                 />
               ) : (
@@ -180,7 +177,7 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
                   style={{ listStyle: "none" }}
                   onClick={handleOpen}
                 >
-                  {user?.identities[0]?.identity_data.email
+                  {identity?.email
                     .slice(0, 1)
                     .toUpperCase()}
                 </Avatar>
@@ -194,23 +191,38 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
               aria-labelledby="keep-mounted-modal-title"
               aria-describedby="keep-mounted-modal-description"
               className="modalbox"
-              
             >
-              <Box className="modalinnner" style={{ textDecoration: "none", backgroundColor: theme.palette.mode === "dark" ? "#1d1d1d" : "white" ,  border: theme.palette.mode === "dark" ? "2px solid #333" : "2px solid #a8a4a44a"}}>
+              <Box
+                className="modalinnner"
+                style={{
+                  textDecoration: "none",
+                  backgroundColor:
+                    theme.palette.mode === "dark" ? "#1d1d1d" : "white",
+                  border:
+                    theme.palette.mode === "dark"
+                      ? "2px solid #333"
+                      : "2px solid #a8a4a44a",
+                }}
+              >
                 <div className="modalheader">
                   <div className="profile">
-                    {user?.identities[0]?.identity_data?.picture ? (
+                    {identity?.picture ? (
                       <Avatar
                         alt={"ffdf"}
-                        src={user.identities[0].identity_data.picture}
+                        src={identity?.picture}
                         sx={{ width: 80, height: 80 }}
                       />
                     ) : (
                       <Avatar
                         style={{ listStyle: "none" }}
-                        sx={{ width: 80, height: 80, bgcolor: deepPurple[500] ,fontSize:"0px"}}
+                        sx={{
+                          width: 80,
+                          height: 80,
+                          bgcolor: deepPurple[500],
+                          fontSize: "0px",
+                        }}
                       >
-                        {user?.identities[0]?.identity_data.email
+                        {identity?.email
                           .slice(0, 1)
                           .toUpperCase()}
                       </Avatar>
@@ -218,25 +230,36 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
                   </div>
                 </div>
                 <div className="modalbody">
-
                   <div className="boxdetails">
                     <div className="inputname">
                       <Typography
                         id="keep-mounted-modal-title"
                         variant="h6"
                         component="h2"
-                        style={{ textDecoration: "none", color: theme.palette.mode === "dark" ? "white" : "black" }}
+                        style={{
+                          textDecoration: "none",
+                          color:
+                            theme.palette.mode === "dark" ? "white" : "black",
+                        }}
                       >
                         Name
                       </Typography>
                     </div>
-                    <div className="inputbox" style={{background: theme.palette.mode === "dark" ? "#333" : "#a8a4a44a"}}>
+                    <div
+                      className="inputbox"
+                      style={{
+                        background:
+                          theme.palette.mode === "dark" ? "#333" : "#a8a4a44a",
+                      }}
+                    >
                       <Typography
                         id="keep-mounted-modal-title"
                         variant="h6"
                         component="h2"
                       >
-                        {user?.user_metadata?.name ? user?.user_metadata?.name : "User Name"}
+                        {user?.user_metadata?.name
+                          ? user?.user_metadata?.name
+                          : "User Name"}
                       </Typography>
                     </div>
                   </div>
@@ -247,19 +270,31 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
                         id="keep-mounted-modal-title"
                         variant="h6"
                         component="h2"
-                        style={{ textDecoration: "none", color: theme.palette.mode === "dark" ? "white" : "black" }}
+                        style={{
+                          textDecoration: "none",
+                          color:
+                            theme.palette.mode === "dark" ? "white" : "black",
+                        }}
                       >
                         Email
                       </Typography>
                     </div>
-                    <div className="inputbox" style={{background: theme.palette.mode === "dark" ? "#333" : "#a8a4a44a"}}>
+                    <div
+                      className="inputbox"
+                      style={{
+                        background:
+                          theme.palette.mode === "dark" ? "#333" : "#a8a4a44a",
+                      }}
+                    >
                       <Typography
                         id="keep-mounted-modal-title"
                         variant="h6"
                         component="h2"
-
                       >
-                        {user?.identities[0]?.identity_data?.email ? user?.user_metadata?.email : "demo23@gmail.com"}
+                        {user?.identities && user.identities.length > 0
+                          ? identity?.full_name ||
+                          identity?.email
+                          : "User"}
                       </Typography>
                     </div>
                   </div>
@@ -270,22 +305,22 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
                         id="keep-mounted-modal-title"
                         variant="h6"
                         component="h2"
-                        style={{ textDecoration: "none", color: theme.palette.mode === "dark" ? "white" : "black" }}
+                        style={{
+                          textDecoration: "none",
+                          color:
+                            theme.palette.mode === "dark" ? "white" : "black",
+                        }}
                       >
                         Mode
                       </Typography>
                     </div>
                     <ThemeToggle />
-
                   </div>
                   <Logout />
-
-
                 </div>
               </Box>
             </Modal>
           </div>
-
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -311,22 +346,24 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <>
                 <Link
-                  style={{ textDecoration: "none", color: theme.palette.mode === "dark" ? "white" : "gray" }}
-
+                  style={{
+                    textDecoration: "none",
+                    color: theme.palette.mode === "dark" ? "white" : "gray",
+                  }}
                   href={
                     text === "Overview"
                       ? "/"
                       : text === "Transactions"
-                        ? "/transactions"
-                        : text === "Category"
-                          ? "/category"
-                          : text === "Budget"
-                            ? "/budget"
-                            : text === "Summary"
-                              ? "/summary"
-                              : text === "History"
-                                ? "/history"
-                                : "#"
+                      ? "/transactions"
+                      : text === "Category"
+                      ? "/category"
+                      : text === "Budget"
+                      ? "/budget"
+                      : text === "Summary"
+                      ? "/summary"
+                      : text === "History"
+                      ? "/history"
+                      : "#"
                   }
                 >
                   <ListItemButton
@@ -337,11 +374,11 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
                       },
                       open
                         ? {
-                          justifyContent: "initial",
-                        }
+                            justifyContent: "initial",
+                          }
                         : {
-                          justifyContent: "center",
-                        },
+                            justifyContent: "center",
+                          },
                     ]}
                   >
                     <ListItemIcon
@@ -352,25 +389,37 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
                         },
                         open
                           ? {
-                            mr: 3,
-                          }
+                              mr: 3,
+                            }
                           : {
-                            mr: "auto",
-                          },
+                              mr: "auto",
+                            },
                       ]}
                     >
-                      {index === 0 ? <PollIcon/>: index === 1 ? <WorkHistoryIcon/> : index === 2 ? <AssuredWorkloadIcon/> : index === 3 ? <CategoryIcon/>: index === 4? <WalletIcon /> :  index === 5? <ReceiptIcon /> : null}
+                      {index === 0 ? (
+                        <PollIcon />
+                      ) : index === 1 ? (
+                        <WorkHistoryIcon />
+                      ) : index === 2 ? (
+                        <AssuredWorkloadIcon />
+                      ) : index === 3 ? (
+                        <CategoryIcon />
+                      ) : index === 4 ? (
+                        <WalletIcon />
+                      ) : index === 5 ? (
+                        <ReceiptIcon />
+                      ) : null}
                     </ListItemIcon>
                     <ListItemText
                       primary={text}
                       sx={[
                         open
                           ? {
-                            opacity: 1,
-                          }
+                              opacity: 1,
+                            }
                           : {
-                            opacity: 0,
-                          },
+                              opacity: 0,
+                            },
                       ]}
                     />
                   </ListItemButton>
@@ -379,58 +428,6 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
             </ListItem>
           ))}
         </List>
-        {/* <Divider /> */}
-        {/* <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={[
-                  {
-                    minHeight: 48,
-                    px: 2.5,
-                  },
-                  open
-                    ? {
-                      justifyContent: 'initial',
-                    }
-                    : {
-                      justifyContent: 'center',
-                    },
-                ]}
-              >
-                <ListItemIcon
-                  sx={[
-                    {
-                      minWidth: 0,
-                      justifyContent: 'center',
-                    },
-                    open
-                      ? {
-                        mr: 3,
-                      }
-                      : {
-                        mr: 'auto',
-                      },
-                  ]}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText
-                  primary={text}
-                  sx={[
-                    open
-                      ? {
-                        opacity: 1,
-                      }
-                      : {
-                        opacity: 0,
-                      },
-                  ]}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />

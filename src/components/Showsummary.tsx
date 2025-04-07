@@ -11,9 +11,7 @@ import Composedchart from "./Composedchart";
 import Mbarchart from './Mbarchart'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { myAuth } from "../../hooks/myAuth";
-import Loading from '../app/loading'
-
+import Loading from '../app/loading';
 
 interface Transaction {
   amount: number;
@@ -46,7 +44,7 @@ const Showsummary = () => {
 
   // Fetch transactions from API
   useEffect(() => {
-    if (!user) return; // Don't run if user is undefined
+    if (!user) return;
 
     async function fetchTransactionData() {
       try {
@@ -57,7 +55,6 @@ const Showsummary = () => {
           return;
         }
 
-        // Format transactions and extract unique months*******
         const formattedTransactions = res
           .filter((elm) => elm.user_id === user?.id)
           .map((txn: Transaction) => ({
@@ -67,13 +64,10 @@ const Showsummary = () => {
 
         setTransactions(formattedTransactions);
 
-        // Extract unique months
         const uniqueMonths = [
           ...new Set(formattedTransactions.map((txn) => txn.formattedDate)),
         ];
         setMonths(uniqueMonths);
-
-        // Set summary for first month
       } catch (err) {
         console.error("Error fetching transactions:", err);
       }
@@ -82,65 +76,53 @@ const Showsummary = () => {
     fetchTransactionData();
   }, [user]);
 
-  // Function to calculate summary for a specific month
-  function updateSummary(myindex: number = 0) {
-    let mytransactions = transactions.filter(
-      (elm) => elm.formattedDate === months[myindex]
-    );
-
-    const income = mytransactions
-      .filter((txn) => txn.type === "income")
-      .reduce((sum, txn) => sum + txn.amount, 0);
-
-    const expenses = mytransactions
-      .filter((txn) => txn.type === "expense")
-      .reduce((sum, txn) => sum + txn.amount, 0);
-
-    setSummary({ income, expenses, balance: income - expenses < 0 ? 0 : income - expenses });
-  }
-
-
-  let expensebarchartdata= transactions
-  .filter((txn) => txn.type === "expense");
-
-  let incomebarchartdata= transactions
-  .filter((txn) => txn.type === "income");
-
-  
-
   // Update summary when month index changes
   useEffect(() => {
     if (months.length > 0) {
-      updateSummary(currentIndex);
+      const selectedMonth = months[currentIndex];
+
+      const filteredTransactions = transactions.filter(
+        (txn) => txn.formattedDate === selectedMonth
+      );
+
+      const income = filteredTransactions
+        .filter((txn) => txn.type === "income")
+        .reduce((sum, txn) => sum + txn.amount, 0);
+
+      const expenses = filteredTransactions
+        .filter((txn) => txn.type === "expense")
+        .reduce((sum, txn) => sum + txn.amount, 0);
+
+      const balance = income - expenses < 0 ? 0 : income - expenses;
+
+      setSummary({ income, expenses, balance });
     }
   }, [currentIndex, months, transactions]);
 
-  // Handle previous month click
-  function handleLeftClick() {
-    setCurrentIndex((elm) => elm - 1);
-  }
+  const handleLeftClick = () => setCurrentIndex((prev) => prev - 1);
+  const handleRightClick = () => setCurrentIndex((prev) => prev + 1);
 
-  // Handle next month click
-  function handleRightClick() {
-    setCurrentIndex((elm) => elm + 1);
-  }
+  const expensebarchartdata = transactions.filter(
+    (txn) => txn.type === "expense"
+  );
+  const incomebarchartdata = transactions.filter(
+    (txn) => txn.type === "income"
+  );
 
-  const { loading } = myAuth();
-
-  if(transactions.length==0)return <Loading />
+  if (transactions.length === 0) return <Loading />;
 
   return (
     <div className="summerysec">
       <div className="topbox">
         <button onClick={handleLeftClick} disabled={currentIndex === 0}>
-          <ChevronLeftIcon/>
+          <ChevronLeftIcon />
         </button>
-        <span> {months[currentIndex]}</span>
+        <span>{months[currentIndex]}</span>
         <button
           onClick={handleRightClick}
           disabled={currentIndex === months.length - 1}
         >
-          <ChevronRightIcon/>
+          <ChevronRightIcon />
         </button>
       </div>
 
@@ -162,12 +144,12 @@ const Showsummary = () => {
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <div className="graph">
-            <Composedchart mydata={expensebarchartdata}/>
+              <Composedchart mydata={expensebarchartdata} />
             </div>
           </Grid>
           <Grid item xs={12} md={6}>
             <div className="graph">
-            <Mbarchart mydata={incomebarchartdata} />
+              <Mbarchart mydata={incomebarchartdata} />
             </div>
           </Grid>
         </Grid>

@@ -17,7 +17,7 @@ const Mycard: React.FunctionComponent<cardpropstype> = (props) => {
 
   const theme = useTheme();
 
-  let { type, amount } = props
+  const { type, amount } = props
   return (
     <div>
       <Card  className="carddsn" style={{ border: theme.palette.mode === "dark" ? "2px solid #333" : "2px solid #a8a4a44a", }}>
