@@ -138,18 +138,24 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
   return (
     <Box sx={{ display: "flex" }} className="wrapper">
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open}
+      style={{
+        backgroundColor:
+          theme.palette.mode === "dark" ? "#2e2e2ee3" : "white",
+          boxShadow:"none",
+          borderBottom:theme.palette.mode === "dark" ? "1px solid black" : "1px solid #e0e0e0"
+      }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            //ffdfdffdsfsfsf
+      
             style={{
               backgroundColor:
                 theme.palette.mode === "dark" ? "#2e2e2ee3" : "#a1a1a1e3",
-          
             }}
             sx={[
               {
