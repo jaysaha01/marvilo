@@ -1,0 +1,994 @@
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Geologica", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+
+}
+
+.modebutton {
+    box-shadow: none !important;
+    border-radius: 7px !important;
+    background-color: #000 !important;
+    color: white !important;
+    font-weight: 200 !important;
+}
+
+.logoutbutton {
+    box-shadow: none !important;
+    border-radius: 7px !important;
+    background-color: #4e4e4ea2 !important;
+    color: white !important;
+    font-weight: 200 !important;
+}
+
+//Wrapper section start
+
+.wrapper {
+    .boxflex {
+        .logo {
+            img {
+                width: 150px;
+            }
+        }
+
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .css-1sv74b4-MuiPaper-root-MuiAppBar-root {
+        --AppBar-background: #ffffff;
+        box-shadow: none;
+        border-bottom: 1px solid #e0e0e0;
+
+    }
+
+    .css-f2z2f9-MuiPaper-root-MuiAppBar-root {
+        --AppBar-background: #ffffff;
+        box-shadow: none;
+        border-bottom: 1px solid #e0e0e0;
+
+    }
+
+    .inputbox {
+        span {
+            color: red;
+        }
+    }
+
+
+}
+
+//Wrapper section end
+
+
+//signIn section Start
+
+.signupcomponet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #0f172a;
+
+    .sideone {
+
+        margin-top: 0;
+        // height: 100vh;
+
+        .signupform {
+
+            // padding-top: 5%;
+            .logo {
+                font-size: 70px;
+                margin-bottom: 10px;
+                padding-top: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+                font-weight: 500;
+                color: white;
+            }
+
+            h5 {
+                font-weight: 100;
+                color: rgb(189, 186, 186);
+                margin-bottom: 30px;
+                font-size: 1.4rem;
+            }
+
+            .googlebutton {
+                width: 60%;
+                margin: auto;
+
+                button {
+                    width: 100%;
+                    border-radius: 30px;
+                    font-size: 16px;
+                    padding: 15px;
+                    background-color: #1f1f1f;
+                    color: #fff;
+                    border: 1px solid #c0bfbfa8;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    cursor: pointer;
+
+                    img {
+                        width: 20px;
+                        height: 20px;
+
+                    }
+                }
+            }
+
+            .css-binzgt {
+                margin-top: 0px;
+            }
+
+            label {
+                color: white;
+            }
+
+            input {
+                background-color: #1f1f1f;
+                border-radius: 10px;
+                border: 2px solid #c0bfbfa8;
+                color: white;
+            }
+
+            span {
+                color: red;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .formbtn {
+                margin-top: 12px;
+                padding: 13px 15px;
+                border-radius: 30px;
+                background-color: #9e57ff;
+                font-weight: 400;
+                font-size: 1rem;
+            }
+
+            h6 {
+                color: rgb(214, 209, 209);
+                text-align: center;
+            }
+        }
+    }
+
+    .sidetwo {
+
+        background-image: url('../../public/bg.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+    }
+
+    .sidesignin {
+        background-image: url('../../public/login.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+
+    }
+}
+
+@media only screen and (max-width: 896px) {
+
+    .signupcomponet .sidetwo {
+        display: none;
+    }
+
+    .signupcomponet {
+        padding: 35px;
+    }
+}
+
+@media only screen and (max-width: 448px) {
+
+    .signupcomponet .sideone .signupform .googlebutton {
+        width: 100%;
+    }
+}
+
+//signup section end
+
+.carddsn {
+    // border: 1px solid rgb(230, 227, 227) !important;
+    box-shadow: none !important;
+    border-radius: 15px !important;
+
+    p {
+        color: black;
+    }
+
+    .css-sbonmf-MuiTypography-root {
+        color: rgb(143, 143, 143);
+        font-size: 27px;
+    }
+
+    .css-hhsxvh-MuiTypography-root {
+        font-size: 27px;
+    }
+
+    .iconbx {
+        background-color: #6696f7;
+        border-radius: 100%;
+        padding: 9px;
+        display: flex;
+        margin-left: 20px;
+        margin-bottom: 14px;
+        color: white;
+        border: 2px solid #407df5;
+
+        svg {
+            font-size: 30px;
+        }
+    }
+}
+
+
+// Amount Card setction start
+
+.gridbx {
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+
+    .carddsn {
+        border: 1px solid rgb(230, 227, 227);
+        box-shadow: none;
+        border-radius: 15px;
+
+        p {
+            color: black;
+        }
+
+        .css-sbonmf-MuiTypography-root {
+            color: rgb(143, 143, 143);
+            font-size: 27px;
+        }
+
+        .css-hhsxvh-MuiTypography-root {
+            font-size: 27px;
+        }
+
+        .iconbx {
+            background-color: #6696f7;
+            border-radius: 100%;
+            padding: 9px;
+            display: flex;
+            margin-left: 20px;
+            margin-bottom: 14px;
+            color: white;
+            border: 2px solid #407df5;
+
+            svg {
+                font-size: 30px;
+            }
+        }
+    }
+}
+
+
+// Amount Card setction End
+
+
+// Overview Section start 
+
+.overvieraper {
+
+    h2 {
+
+        font-family: "Kanit", sans-serif;
+        font-weight: 600;
+        font-optical-sizing: auto;
+        font-size: 40px;
+        letter-spacing: -3px;
+        margin-bottom: 0;
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+
+    p {
+        color: rgb(153, 150, 150);
+        font-size: 20px;
+        font-weight: 300;
+    }
+
+    .myoverviewbx {
+        border: 2px solid rgb(214, 212, 212);
+        padding: 30px;
+        margin-top: 20px;
+        border-radius: 15px;
+
+        h5 {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+
+        }
+
+        p {
+            color: #787878;
+            font-size: 17px;
+            font-weight: 200;
+        }
+    }
+
+    .gridbxtwo {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+
+        .chatbx {
+            width: 100%;
+
+            .recharts-wrapper {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .overvieraper .myoverviewbx {
+        padding: 25px;
+    }
+}
+
+// Overview Section end
+
+
+//Add Transactions section start
+
+.addtransactions {
+
+    display: inline-block;
+
+    h1 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        padding-bottom: 20px;
+        text-align: left !important;
+    }
+
+    form {
+        padding: 27px;
+        border-radius: 10px;
+
+        button {
+            background-color: #9e57ff;
+            padding: 8px 24px;
+            border-radius: 10px;
+            display: inline;
+            width: auto;
+            display: block;
+        }
+
+        span {
+            color: red;
+        }
+    }
+}
+
+
+@media only screen and (max-width: 560px) {
+    .addtransactions form {
+        padding: 0px;
+        border-radius: 10px;
+        padding-top: 18px;
+    }
+}
+
+
+//Add Transactions section End
+
+
+// History Section start 
+
+.histroysec {
+
+    h1 {
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .histrybx {
+
+        .wrapperbx {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+
+            .search-btn {
+                color: white;
+                float: right;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: black;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: 2s;
+            }
+
+            .fa-search {
+                background: black;
+                font-size: 24px;
+            }
+        }
+    }
+
+    .exportbtn {
+
+        border-radius: 8px;
+        color: #000;
+        text-decoration: none;
+        font-weight: 200;
+
+        svg {
+            color: white;
+            font-size: 30px;
+        }
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .histroysec .histrybx select {
+        margin-bottom: 4%;
+    }
+
+    .histroysec .histrybx input {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .histroysec .histrybx .wrapperbx {
+        flex-direction: column;
+    }
+
+    .histroysec .histrybx .wrapperbx select {
+        width: 100%;
+    }
+}
+
+// History Section end
+
+//category secton start 
+
+.catagroyform {
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid rgb(204, 199, 199);
+
+    h1 {
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        font-family: cursive;
+        text-align: left;
+
+    }
+
+    .css-178yklu {
+        margin-top: 0px;
+        width: 98%;
+    }
+
+    input {
+
+        border-radius: 10px;
+        border: none;
+        width: 100%;
+    }
+
+    button {
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+
+
+    .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root {
+        border-radius: 10px;
+    }
+
+    .css-binzgt {
+        margin-top: 0px;
+
+    }
+}
+
+.catagroybx {
+    // border: 2px solid red;
+
+    .addingbox {
+        border: 2px dashed gray;
+        height: 150px;
+        border-radius: 10px;
+        background-color: rgb(245, 245, 245);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
+        svg {
+            font-size: 64px;
+            padding: 10px;
+            background-color: rgb(60 60 60 / 17%);
+            border-radius: 100%;
+            color: rgb(76 72 72);
+        }
+    }
+
+    .mycatagorybx {
+
+        position: relative;
+        border-radius: 10px;
+        z-index: 1;
+        height: 100%;
+        box-shadow: none;
+        border: 2px solid #dfdfdf;
+
+        &::after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: #5252521a;
+            right: -45px;
+            bottom: 68px;
+            border-radius: 100%;
+            z-index: -1;
+        }
+
+        svg:nth-child(1) {
+            font-size: 50px;
+            padding: 10px;
+            background-color: rgb(223, 222, 222);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        svg {
+            font-size: 10px;
+            padding: 10px;
+            background-color: rgb(223, 222, 222);
+            border-radius: 6px;
+            cursor: pointer;
+            color: rgb(93, 93, 95);
+        }
+
+        .css-1f9xtph-MuiTypography-root {
+            font-family: cursive;
+        }
+
+        .boxies {
+            padding-left: 10px;
+
+            .edit {
+
+                font-size: 30px !important;
+                padding: 6px !important;
+            }
+
+            .delete {
+                padding: 6px !important;
+                font-size: 30px !important;
+                margin-left: 10px;
+            }
+
+        }
+    }
+}
+
+//category secton end 
+
+//Budget section start
+
+.budgetsection {
+
+    .budgetchild {
+
+        .addingbox {
+            border: 2px dashed rgb(206, 201, 201);
+            height: 170px;
+            border-radius: 10px;
+            background-color: rgb(224, 224, 224);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+                font-size: 64px;
+                padding: 10px;
+                background-color: rgb(60 60 60 / 17%);
+                border-radius: 100%;
+                color: rgb(76 72 72);
+            }
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .budgetcard {
+            border: 2px solid rgba(212, 212, 212, 0.445);
+            box-shadow: none;
+            border-radius: 10px;
+            height: 100%;
+
+            .budercheader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 10px;
+
+                .boxone {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    .icone {
+                        padding: 3px 8px;
+                        border-radius: 100%;
+                        background-color: rgb(216, 214, 214);
+
+                        svg {
+                            color: rgb(70, 70, 70);
+                        }
+                    }
+
+                    p {
+                        font-weight: 700;
+                        color: black;
+                        font-size: 20px;
+                    }
+                }
+
+                .boxtwo {
+
+                    p {
+                        font-weight: 700;
+                        color: #5314cd;
+                        font-size: 20px;
+                    }
+                }
+            }
+
+            .budgettext {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 10px;
+            }
+
+            .cardbody {
+
+                .progress-bar {
+                    position: relative;
+                    height: 10px;
+                    width: 100%;
+                    background: rgb(173, 171, 171);
+                    border-radius: 25px;
+
+                    .progress-fill {
+                        position: absolute;
+                        height: 10px;
+                        width: 10%;
+                        animation: progress-forward 3s infinite;
+                        background: #5314cd;
+                        border-radius: 15px;
+                    }
+                }
+            }
+
+            .dlt {
+                background-color: gainsboro;
+                color: #5314cd;
+                border: 1px solid rgb(180, 179, 179);
+            }
+        }
+    }
+}
+
+.budgetcard {
+    border: 2px solid rgba(212, 212, 212, 0.445);
+    box-shadow: none !important;
+    border-radius: 10px !important;
+    margin-bottom: 10px;
+    height: 100%;
+
+
+    .budercheader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        .boxone {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .icone {
+                padding: 3px 8px;
+                border-radius: 100%;
+                background-color: rgb(216, 214, 214);
+
+                svg {
+                    color: rgb(70, 70, 70);
+                }
+            }
+
+            p {
+                font-weight: 700;
+                color: black;
+                font-size: 20px;
+            }
+        }
+
+        .boxtwo {
+
+            p {
+                font-weight: 700;
+                color: #5314cd;
+                font-size: 20px;
+            }
+        }
+    }
+
+    .budgettext {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .cardbody {
+
+        .progress-bar {
+            position: relative;
+            height: 10px;
+            width: 100%;
+            background: rgb(173, 171, 171);
+            border-radius: 25px;
+
+
+            .progress-fill {
+                position: absolute;
+                height: 10px;
+                width: 10%;
+                animation: progress-forward 3s infinite;
+                background: #5314cd;
+                border-radius: 15px;
+            }
+        }
+    }
+
+    .dlt {
+        background-color: gainsboro;
+        color: #5314cd;
+        border: 1px solid rgb(180, 179, 179);
+    }
+}
+
+//Budget section end
+
+//Profile Section start
+
+.modalbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 10px;
+
+    .css-178yklu {
+        margin-top: 0px;
+    }
+
+    .modalinnner {
+        background-color: white;
+        width: 40%;
+        border: none;
+        border-radius: 15px;
+        
+        .modalheader {
+            height: 100px;
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            position: relative;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            padding: 20px;
+
+            .profile {
+                position: absolute;
+                bottom: -30%;
+                left: 4%;
+            }
+        }
+
+        .modalbody {
+            margin-top: 33px;
+            padding: 20px;
+
+            .boxdetails {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+                margin-bottom: 20px;
+
+                .inputname {
+                    color: rgb(0, 0, 0);
+                    font-size: 18px !important;
+                    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+                    h2 {
+                        font-weight: 200;
+                        font-size: 17px;
+                        color: #000000;
+                    }
+                }
+
+                .inputbox {
+                    border: 1px solid #b5acacab;
+                    padding: 7px;
+                    width: 100%;
+                    border-radius: 7px;
+
+                    h2 {
+                        color: #5e5e5e;
+                        font-weight: 100;
+                        font-size: 17px;
+                    }
+                }
+
+
+            }
+        }
+
+        &:focus-visible {
+            outline: none;
+            border: none;
+        }
+    }
+}
+
+
+@media only screen and (max-width: 988px) {
+
+    .modalbox {
+        .modalinnner {
+            width: 80%;
+        }
+    }
+
+}
+
+@media only screen and (max-width: 500px) {
+    .modalbox {
+        .modalinnner {
+            width: 90%;
+        }
+    }
+}
+
+
+//Profile Section end
+
+//Summer section start
+
+.summerysec {
+
+
+
+    .graph {
+
+
+        svg {
+            width: 100%;
+
+        }
+    }
+
+
+    .topbox {
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+
+        button {
+            padding: 0px 30px;
+            border: none;
+            background-color: rgb(221, 220, 220);
+            border-radius: 3px;
+            height: 56px;
+            width: 31px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 100%;
+            cursor: pointer;
+
+            svg {
+                font-size: 36px;
+                font-weight: 300;
+            }
+        }
+
+    }
+
+
+}
+
+//Summer section end
+
+// Loading  section start
+
+.loading {
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .imgbx {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        h2 {
+            margin: 0;
+            padding: 0;
+            font-weight: 300;
+            font-size: 30px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+            letter-spacing: 0px;
+        }
+
+        img {
+            height: 400px;
+            width: 400px;
+        }
+    }
+
+    .imgbxtwo {
+
+        img {
+            width: 80%;
+        }
+
+        a {
+            background-color: #5876cf;
+            padding: 12px 20px;
+            border-radius: 9px;
+            color: #ffffff;
+            text-decoration: none;
+        }
+    }
+}
+
+// Loading  section end
