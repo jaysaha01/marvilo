@@ -87,7 +87,7 @@ const Page = () => {
 
    myAuth();
 
-  // ✅ Handle missing parameters gracefully
+
   if (!user_id || !transaction_id) {
     console.error("Missing required parameters: user_id or transaction_id");
     return <p>Error: Missing required parameters.</p>;
@@ -110,9 +110,9 @@ const Page = () => {
         >
           <h1>Edit Transaction</h1>
           <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-            {/* ✅ Transaction Type - Controlled from the start */}
+          
             <FormControl fullWidth error={!!errors.ttype} sx={{ mb: 2 }}>
-              {/* <InputLabel>Transaction Type</InputLabel> */}
+            
               <Select
                 {...register("ttype", {
                   required: "Transaction Type is required!",
@@ -146,9 +146,8 @@ const Page = () => {
             />
             {errors.amount && <span>{errors.amount.message}</span>}
 
-            {/* ✅ Category - Controlled from the start */}
+            
             <FormControl fullWidth error={!!errors.mycategory} sx={{ mb: 2 }}>
-              {/* <InputLabel>Category</InputLabel> */}
               <Select
                 {...register("mycategory", {
                   required: "Category is required!",

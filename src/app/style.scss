@@ -325,10 +325,9 @@
 
         .chatbx {
             width: 100%;
-
             .recharts-wrapper {
-                width: 100%;
-                height: 100%;
+                width: 100% !important;
+                height: 100% !important;
             }
         }
     }
@@ -999,3 +998,19 @@
     }
 }
 // Loading  section end
+
+.gridbxtwo {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+
+    .chatbx {
+        width: 100%;
+       
+
+        .recharts-wrapper {
+            width: 100% !important;
+            height: 100% !important;
+        }
+    }
+}

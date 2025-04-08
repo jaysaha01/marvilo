@@ -151,7 +151,9 @@ const Overview = () => {
                 </div>
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
+              <div className="chatbx">
                 <Mybarchart mydata={expensedata} />
+                </div>
               </Grid>
             </Grid>
           </Box>

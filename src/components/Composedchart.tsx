@@ -26,7 +26,7 @@ const Composedchart: React.FC<AchartProps> = ({ mydata }) => {
         <XAxis dataKey="formattedDate" />
         <YAxis />
         <Tooltip />
-        <Legend />
+        {/* <Legend /> */}
         <CartesianGrid stroke="#f5f5f5" />
         <Area type="monotone" dataKey="amount" fill="#B03052" stroke="#8884d8" />
         <Bar dataKey="amount" barSize={20} fill="#B03052" />

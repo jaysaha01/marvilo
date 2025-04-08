@@ -143,13 +143,17 @@ const Showsummary = () => {
       <Box sx={{ flexGrow: 1, mt: 3 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
-            <div className="graph">
-              <Composedchart mydata={expensebarchartdata} />
+            <div className="graph gridbxtwo">
+              <div className="chatbx">
+                <Composedchart mydata={expensebarchartdata} />
+              </div>
             </div>
           </Grid>
           <Grid item xs={12} md={6}>
-            <div className="graph">
-              <Mbarchart mydata={incomebarchartdata} />
+            <div className="graph gridbxtwo">
+              <div className="chatbx">
+                <Mbarchart mydata={incomebarchartdata} />
+              </div>
             </div>
           </Grid>
         </Grid>
