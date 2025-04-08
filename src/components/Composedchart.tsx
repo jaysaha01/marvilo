@@ -1,6 +1,6 @@
 
 import React from "react";
-import { ComposedChart, XAxis, YAxis,Tooltip, Legend, CartesianGrid, Area, Bar, Line } from "recharts";
+import { ComposedChart, XAxis, YAxis,Tooltip, CartesianGrid, Area, Bar, Line } from "recharts";
 
 
   interface Transaction {
