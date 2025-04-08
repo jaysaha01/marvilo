@@ -23,7 +23,10 @@ import {
 import Chip from "@mui/material/Chip";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
-import { renderMyTransactions, deleteTransations } from "../../service/apiTracker";
+import {
+  renderMyTransactions,
+  deleteTransations,
+} from "../../service/apiTracker";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ToastContainer, toast } from "react-toastify";
@@ -47,7 +50,10 @@ interface mytransationtype {
 const Historytable = () => {
   const theme = useTheme();
   const [transactions, setTransactions] = useState<mytransationtype[]>([]);
-  const [coppytransactions, setCoppytransactions] = useState<mytransationtype[]>([]);
+  const [coppytransactions, setCoppytransactions] = useState<
+    mytransationtype[]
+  >([]);
+  const [, setSelectedDate] = useState("");
   const [, setOpen] = useState(false);
 
   myAuth();
@@ -86,7 +92,9 @@ const Historytable = () => {
     if (newValue === "all") {
       setCoppytransactions(transactions);
     } else {
-      const filtertranstype = transactions.filter((elm) => elm.type === newValue);
+      const filtertranstype = transactions.filter(
+        (elm) => elm.type === newValue
+      );
       setCoppytransactions(filtertranstype);
     }
   }
@@ -97,7 +105,9 @@ const Historytable = () => {
     if (newValue === "all") {
       setCoppytransactions(transactions);
     } else {
-      const filteredTransactions = transactions.filter((elm) => elm.categary === newValue);
+      const filteredTransactions = transactions.filter(
+        (elm) => elm.categary === newValue
+      );
       setCoppytransactions(filteredTransactions);
     }
   }
@@ -108,10 +118,12 @@ const Historytable = () => {
     if (keyword === "all" || keyword.trim() === "") {
       setCoppytransactions(transactions);
     } else {
-      const filtered = transactions.filter((txn) =>
-        txn.note.toLowerCase().includes(keyword) ||
-        txn.categary.toLowerCase().includes(keyword) ||
-        txn.type.toLowerCase().includes(keyword)
+      const filtered = transactions.filter(
+        (txn) =>
+          txn.note.toLowerCase().includes(keyword) ||
+          txn.categary.toLowerCase().includes(keyword) ||
+          txn.type.toLowerCase().includes(keyword) ||
+          txn.amount.toString().toLowerCase().includes(keyword) // <-- added this line
       );
       setCoppytransactions(filtered);
     }
@@ -126,6 +138,21 @@ const Historytable = () => {
       position: "top-right",
       theme: "dark",
     });
+  }
+
+  function handleDateChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const selected = e.target.value;
+    setSelectedDate(selected);
+  
+    if (!selected) {
+      setCoppytransactions(transactions);
+      return;
+    }
+  
+    const filteredByDate = transactions.filter((txn) =>
+      txn.created_at.startsWith(selected) // assumes `created_at` is in ISO format
+    );
+    setCoppytransactions(filteredByDate);
   }
 
   function handleEdit() {
@@ -186,12 +213,21 @@ const Historytable = () => {
         </FormControl>
 
         <TextField
-          sx={{ width: "600px", height: "100%" }}
+          type="date"
+          fullWidth
+          onChange={(e) => handleDateChange(e)}
+        />
+
+        <TextField
+          // sx={{ width: "500px", height: "100%" }}
+          fullWidth
           onChange={handleSearchChange}
           id="filled-basic"
-          label="Search by note, type, or category"
+          label="Search by note, type, category or amount"
           variant="filled"
         />
+
+        
 
         <CSVLink
           data={transactions}
@@ -251,8 +287,7 @@ const Historytable = () => {
                     <Link
                       href={`history/${row.user_id}/${row.id}`}
                       style={{
-                        color:
-                          theme.palette.mode === "dark" ? "white" : "gray",
+                        color: theme.palette.mode === "dark" ? "white" : "gray",
                       }}
                     >
                       <ModeEditOutlineIcon onClick={handleEdit} />
@@ -260,8 +295,7 @@ const Historytable = () => {
                     <DeleteIcon
                       onClick={() => handleDelete(row.id, row.user_id)}
                       sx={{
-                        color:
-                          theme.palette.mode === "dark" ? "white" : "gray",
+                        color: theme.palette.mode === "dark" ? "white" : "gray",
                       }}
                     />
                   </TableCell>
@@ -277,7 +311,8 @@ const Historytable = () => {
                 sx={{
                   p: 2,
                   mb: 2,
-                  backgroundColor: theme.palette.mode === "dark" ? "#333" : "#fff",
+                  backgroundColor:
+                    theme.palette.mode === "dark" ? "#333" : "#fff",
                 }}
               >
                 <strong>Type:</strong> &nbsp;{elm.type}
@@ -293,7 +328,9 @@ const Historytable = () => {
                   <Link href={`history/${elm.user_id}/${elm.id}`}>
                     <ModeEditOutlineIcon onClick={handleEdit} />
                   </Link>
-                  <DeleteIcon onClick={() => handleDelete(elm.id, elm.user_id)} />
+                  <DeleteIcon
+                    onClick={() => handleDelete(elm.id, elm.user_id)}
+                  />
                 </TableCell>
               </Paper>
             ))}

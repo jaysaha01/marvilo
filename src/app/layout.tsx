@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const currentPathName = usePathname();
-  const hideWrapper = currentPathName === "/signup" || currentPathName === "/signin";
+  const hideWrapper = currentPathName === "/signup" || currentPathName === "/signin" || currentPathName === "/forget-password" || currentPathName === "/reset-password";
 
   return (
     <AuthProvider>

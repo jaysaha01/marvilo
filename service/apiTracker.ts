@@ -259,30 +259,6 @@ export const addBudgetAnlysis = async (mydata: totalBugetype, cuid: string) => {
 };
 
 
-// export const renderBudgetAnalysis = async (mydata:totalBugetype) => {
-//   // let { data: budget, error } = await supabase.from("budgetanalysis").select("*");
-
-//   // if (error) {
-//   //   console.log("Budget Recoard Not Fetch", error);
-//   // } else {
-//   //   console.log("Tracking Recoard Fetched Successfully", budget);
-//   // }
-
-//   // return budget;
-
-//   const { data, error } = await supabase
-//   .from("budgetanalysis") // Replace with your actual table name
-//   .upsert(mydata, { onConflict: ["user_id", "category", "month"] });
-
-// if (error) {
-//   console.error("🚨 Error updating budget analysis:", error);
-// } else {
-//   console.log("✅ Budget analysis updated successfully:", data);
-// }
-// };
-
-
-
 export const renderBudgetAnalysis = async (mydata: totalBugetype[]) => {
   const { data, error } = await supabase
     .from("budgetanalysis") // Your Supabase table
@@ -292,5 +268,27 @@ export const renderBudgetAnalysis = async (mydata: totalBugetype[]) => {
     console.error("🚨 Error updating budget analysis:", error);
   } else {
     console.log("✅ Budget analysis updated successfully:", data);
+  }
+};
+
+export const forgetPassword = async (email:string) => {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: 'https://marvilo.vercel.app/reset-password',
+  })
+  if(error){
+    console.log(error)
+  }else{
+    console.log(data)
+  }
+};
+
+export const resetPassword = async (password:string) => {
+  const { data, error } = await supabase.auth.updateUser({
+    password: password,
+  });
+  if(error){
+    console.log(error)
+  }else{
+    console.log(data)
   }
 };

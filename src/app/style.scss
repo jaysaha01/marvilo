@@ -801,7 +801,10 @@
         
         .modalheader {
             height: 100px;
-            background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            // background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background-image: url('../../public/newpbg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
             position: relative;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;

@@ -43,6 +43,10 @@ const SignInForm: React.FC = () => {
     router.push("/signup");
   }
 
+  function handlefClick(){
+    router.push("/forget-password");
+  }
+
   return (
     <Container maxWidth="sm" className="signupform">
       <ToastContainer
@@ -118,7 +122,8 @@ const SignInForm: React.FC = () => {
 
           <Typography variant="subtitle1" gutterBottom>
             You don&rsquo;t have an account?{" "}
-            <a onClick={handleClick} style={{ cursor: "pointer" }}>Sign Up</a>
+            <a onClick={handleClick} style={{ cursor: "pointer" }}>Sign Up</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a onClick={handlefClick} style={{ cursor: "pointer" }}>Forget Password</a>
           </Typography>
         </Box>
       </Box>

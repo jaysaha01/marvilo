@@ -30,18 +30,23 @@ const Mycatagorycard: React.FC<totainterface> = ({ mydata }) => {
       return;
     }
     deletemyCatagory(id, user_id);
-
   }
 
   const theme = useTheme();
 
+  const mycatname= mydata.name;
+  const firstLeffer=mycatname.slice(0,1).toUpperCase();
+  const restLetter= mycatname.slice(1,mycatname.length)
+  const final= firstLeffer + restLetter
+
   return (
 
-    <Card sx={{ maxWidth: 345 }} className="mycatagorybx" style={{ border: theme.palette.mode === "dark" ? "2px solid #4e4e4e" : "2px solid #dedee1", }}>
+    <Card  className="mycatagorybx" style={{ border: theme.palette.mode === "dark" ? "2px solid #4e4e4e" : "2px solid #dedee1", }}>
       <CardContent>
         <DashboardCustomizeIcon />
         <Typography gutterBottom variant="h5" component="div">
-          {mydata.name}
+          {/* {mydata.name} */}
+          {final}
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
           {mydata.type}

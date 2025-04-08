@@ -8,10 +8,11 @@ import Mycard from "./Mycard";
 import { useAuth } from "@/context/AuthContext";
 import moment from "moment";
 import Composedchart from "./Composedchart";
-import Mbarchart from './Mbarchart'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import Loading from '../app/loading';
+import Mbarchart from "./Mbarchart";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import Loading from "../app/loading";
+import { ToastContainer, toast } from "react-toastify";
 
 interface Transaction {
   amount: number;
@@ -113,14 +114,57 @@ const Showsummary = () => {
 
   return (
     <div className="summerysec">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="darken"
+      />
       <div className="topbox">
-        <button onClick={handleLeftClick} disabled={currentIndex === 0}>
+        <button
+          onClick={() => {
+            if (currentIndex === 0) {
+              toast.warn("You are already on the first month!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
+            } else {
+              handleLeftClick();
+            }
+          }}
+        >
           <ChevronLeftIcon />
         </button>
         <span>{months[currentIndex]}</span>
         <button
-          onClick={handleRightClick}
-          disabled={currentIndex === months.length - 1}
+          onClick={() => {
+            if (currentIndex === months.length - 1) {
+              toast.warn("You are already on the first month!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
+            } else {
+              handleRightClick();
+            }
+          }}
         >
           <ChevronRightIcon />
         </button>
