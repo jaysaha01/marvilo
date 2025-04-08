@@ -981,4 +981,21 @@
     }
 }
 
+
+@media only screen and (max-width: 500px) {
+    .loading .imgbx img {
+       
+        height: 100%;
+        width: 100%;
+        text-align: center;
+    }
+
+    .loading {
+        text-align: center;
+    }
+
+    .overvieraper h2 {
+        font-size: large;
+    }
+}
 // Loading  section end

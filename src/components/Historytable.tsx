@@ -102,16 +102,18 @@ const Historytable = () => {
     }
   }
 
-  function inputCatagroy(e: React.ChangeEvent<HTMLInputElement>) {
-    const newValue = e.target.value.toLowerCase();
+  function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const keyword = e.target.value.toLowerCase();
 
-    if (newValue === "all") {
+    if (keyword === "all" || keyword.trim() === "") {
       setCoppytransactions(transactions);
     } else {
-      const filteredTransactions = transactions.filter((elm) =>
-        elm.categary.toLowerCase().includes(newValue)
+      const filtered = transactions.filter((txn) =>
+        txn.note.toLowerCase().includes(keyword) ||
+        txn.categary.toLowerCase().includes(keyword) ||
+        txn.type.toLowerCase().includes(keyword)
       );
-      setCoppytransactions(filteredTransactions);
+      setCoppytransactions(filtered);
     }
   }
 
@@ -185,9 +187,9 @@ const Historytable = () => {
 
         <TextField
           sx={{ width: "600px", height: "100%" }}
-          onChange={inputCatagroy}
+          onChange={handleSearchChange}
           id="filled-basic"
-          label="Search..."
+          label="Search by note, type, or category"
           variant="filled"
         />
 

@@ -29,7 +29,7 @@ type Inputs = {
 };
 
 const Page = () => {
-  // ✅ Ensuring params are defined to prevent TypeScript error
+  
   const params = useParams() as { user_id?: string; transaction_id?: string };
   const user_id = params.user_id || "";
   const transaction_id = params.transaction_id || "";
@@ -37,8 +37,8 @@ const Page = () => {
   const [myCategory, setMyCategory] = useState<{ id: string; name: string }[]>(
     []
   );
-  const [selectedTtype, setSelectedTtype] = useState(""); // ✅ Ensuring controlled state
-  const [selectedCategory, setSelectedCategory] = useState(""); // ✅ Ensuring controlled state
+  const [selectedTtype, setSelectedTtype] = useState(""); 
+  const [selectedCategory, setSelectedCategory] = useState(""); 
 
   const {
     register,
@@ -68,7 +68,6 @@ const Page = () => {
           setValue("amount", transaction.amount || 0);
           setValue("mydate", transaction.created_at.split("T")[0]); // Extract date only
 
-          // ✅ Set controlled values for Select components
           setSelectedTtype(transaction.type || "");
           setSelectedCategory(transaction.category || "");
         }

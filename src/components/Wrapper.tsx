@@ -225,7 +225,7 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
                           width: 80,
                           height: 80,
                           bgcolor: deepPurple[500],
-                          fontSize: "0px",
+                          fontSize: "35px",
                         }}
                       >
                         {identity?.email
