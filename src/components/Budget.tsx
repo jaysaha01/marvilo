@@ -27,7 +27,7 @@ import {
 } from "@mui/material";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
-import {rendermyCatagory } from "../../service/apiTracker";
+import { rendermyCatagory } from "../../service/apiTracker";
 import Select from "@mui/material/Select";
 import moment from "moment";
 
@@ -58,10 +58,10 @@ export interface totalBugetype {
   percentage: string;
   remaining: number;
   spentAmount: number;
-  mydate: string; 
+  mydate: string;
 }
 
-interface filteredType{
+interface filteredType {
   categary: string;
   modified_date: string;
   mdate: string;
@@ -77,12 +77,12 @@ interface filteredType {
   type: string;
 }
 
-interface budgetgrouptype{
-  categary:string,
-  modified_date:string,
-  mdate:string,
-  type:string,
-  total_amount:number
+interface budgetgrouptype {
+  categary: string,
+  modified_date: string,
+  mdate: string,
+  type: string,
+  total_amount: number
 }
 
 interface groupkicu {
@@ -90,10 +90,10 @@ interface groupkicu {
   modified_date: string;
   total_amount: number;
   mdate: string;
-  type: string; 
+  type: string;
 }
 
-  
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -194,39 +194,39 @@ const Budget = () => {
     setFilteredTransactions(Object.values(groupedData));
   }, [transactions]);
 
-  
+
   //Addin extra column of modified data like "March 2025" and Find out categroywise and month wise total budget using moment js---------------
 
 
   useEffect(() => {
     function makeModifiedBudget() {
-  
-      const budgetgroupedData: { [key: string]:groupkicu } = {};
-      
-  
+
+      const budgetgroupedData: { [key: string]: groupkicu } = {};
+
+
       budget.forEach((elm) => {
         const modifiedDate = moment(elm.created_at).format("MMMM YYYY");
         const key = `${elm.category}-${modifiedDate}-${elm.created_at}`;
-  
+
         if (!budgetgroupedData[key]) {
           budgetgroupedData[key] = {
             categary: String(elm.category),
             modified_date: modifiedDate,
             total_amount: 0,
             mdate: elm.created_at,
-            type: "expense" 
+            type: "expense"
           };
         }
-  
+
         budgetgroupedData[key].total_amount += elm.amount;
       });
-      
-  
+
+
       setFilteredBudget(Object.values(budgetgroupedData));
 
-      
+
     }
-    
+
     makeModifiedBudget();
   }, [budget]);
 
@@ -251,9 +251,9 @@ const Budget = () => {
       if (user?.id) {
         await addBudgett(data, user?.id);
 
-        await fetchTransactionData(); 
+        await fetchTransactionData();
         handleClose();
-        reset(); 
+        reset();
       }
     } catch (error) {
       console.error("Error adding budget:", error);
@@ -266,23 +266,23 @@ const Budget = () => {
         const expenseTransactions = filteredTransactions.filter(
           (txn) => txn.type === "expense"
         );
-    
+
         const budgetAnalysisArray = filteredBudget.map((budgetItem) => {
           const spentItem = expenseTransactions.find(
             (txn) =>
               txn.categary === budgetItem.categary &&
               txn.modified_date === budgetItem.modified_date
           );
-    
-      
+
+
           const spentAmount = spentItem ? spentItem.total_amount : 0;
           const budgetAmount = budgetItem.total_amount;
           const remaining =
-          budgetAmount - spentAmount > 0 ? budgetAmount - spentAmount : 0;
-          const percentage = Math.round( (spentAmount / budgetAmount) * 100)  > 100 ? 100 : Math.round( (spentAmount / budgetAmount) * 100);
+            budgetAmount - spentAmount > 0 ? budgetAmount - spentAmount : 0;
+          const percentage = Math.round((spentAmount / budgetAmount) * 100) > 100 ? 100 : Math.round((spentAmount / budgetAmount) * 100);
           const isOverBudget = spentAmount > budgetAmount;
-    
-    
+
+
           return {
             budgetAmount,
             category: budgetItem.categary,
@@ -294,7 +294,7 @@ const Budget = () => {
             mydate: budgetItem.mdate,
           };
         });
-    
+
         setBudgetAnaysis(budgetAnalysisArray);
       };
 
@@ -335,18 +335,18 @@ const Budget = () => {
                 className="modalbox"
               >
                 <Box sx={style} className="modalinnner" style={{
-                        backgroundColor:
-                          theme.palette.mode === "dark"
-                            ? "#181818"
-                            : "white",
-                          border:theme.palette.mode === "dark" ? "1px solid gray" : "",
-                            
-                      }}>
+                  backgroundColor:
+                    theme.palette.mode === "dark"
+                      ? "#181818"
+                      : "white",
+                  border: theme.palette.mode === "dark" ? "1px solid gray" : "",
+
+                }}>
                   <Box
                     component="form"
                     onSubmit={handleSubmit(onSubmit)}
                     sx={{ mt: 3 }}
-                    
+
                   >
                     <TextField
                       error={!!errors.amount}
@@ -373,7 +373,7 @@ const Budget = () => {
                     <FormControl
                       fullWidth
                       error={!!errors.mycategory}
-                      sx={{ mb:1.3  }}
+                      sx={{ mb: 1.3 }}
                       style={{
                         backgroundColor:
                           theme.palette.mode === "dark"
@@ -387,21 +387,27 @@ const Budget = () => {
                         control={control}
                         defaultValue=""
                         rules={{ required: "Category is required" }}
+                        render={({ field }) => {
+                          // Get unique expense categories from transactions
+                          const expenseCategories = Array.from(
+                            new Set(
+                              transactions
+                                .filter((elm) => elm.type === "expense")
+                                .map((elm) => elm.categary)
+                            )
+                          );
 
-                        render={({ field }) => (
-                          <Select {...field} label="Category">
-                            <MenuItem value="">Select Category</MenuItem>
-                            {
-                              transactions.filter((elm)=>(
-                                elm.type=="expense"
-                              )).map((elm)=>(
-                                <MenuItem key={elm.id} value={elm.categary}>
-                                {elm.categary}
-                              </MenuItem>
-                              ))
-                            }
-                          </Select>
-                        )}
+                          return (
+                            <Select {...field} label="Category">
+                              <MenuItem value="">Select Category</MenuItem>
+                              {expenseCategories.map((cat) => (
+                                <MenuItem key={cat} value={cat}>
+                                  {cat}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          );
+                        }}
                       />
                     </FormControl>
 
@@ -419,7 +425,7 @@ const Budget = () => {
                       type="date"
                       fullWidth
                       {...register("mydate", { required: "Date is required!" })}
-                      
+
                       style={{
                         backgroundColor:
                           theme.palette.mode === "dark"
@@ -436,7 +442,7 @@ const Budget = () => {
                       type="submit"
                       fullWidth
                       variant="contained"
-                      sx={{ mt: 1.3, mb: 2 ,p:2}}
+                      sx={{ mt: 1.3, mb: 2, p: 2 }}
                       className="modebutton"
                     >
                       Set Budget

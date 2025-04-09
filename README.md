@@ -61,6 +61,5 @@ This app helps users manage their finances with ease — track income and expens
 - **Charts**: [Recharts](https://recharts.org/)
 
 
-New commit chagne
 
 
