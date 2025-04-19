@@ -63,13 +63,13 @@ const Page = () => {
           (elm) => elm.user_id === user_id && elm.id === transaction_id
         );
 
+        
         if (transaction) {
           setValue("note", transaction.note || "");
           setValue("amount", transaction.amount || 0);
           setValue("mydate", transaction.created_at.split("T")[0]); // Extract date only
-
           setSelectedTtype(transaction.type || "");
-          setSelectedCategory(transaction.category || "");
+          setSelectedCategory(transaction.categary || "");
         }
       } catch (error) {
         console.error("Error fetching transaction data:", error);
@@ -80,13 +80,11 @@ const Page = () => {
   }, [user_id, transaction_id, setValue]);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log("Updated Data:", data, user_id, transaction_id);
     await editTransaction(data, user_id, transaction_id);
     toast.success("Transaction updated successfully!");
   };
 
    myAuth();
-
 
   if (!user_id || !transaction_id) {
     console.error("Missing required parameters: user_id or transaction_id");
@@ -146,7 +144,6 @@ const Page = () => {
             />
             {errors.amount && <span>{errors.amount.message}</span>}
 
-            
             <FormControl fullWidth error={!!errors.mycategory} sx={{ mb: 2 }}>
               <Select
                 {...register("mycategory", {

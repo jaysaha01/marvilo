@@ -93,7 +93,7 @@ const SignupForm: React.FC = () => {
             <span>Email is required !</span>
           )}
           {errors?.email?.type === "pattern" && (
-            <span>email Ex: jsmith@company.com</span>
+            <span>email Ex: jsmith45@company.com</span>
           )}
           <TextField
             margin="normal"

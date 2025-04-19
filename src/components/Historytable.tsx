@@ -54,7 +54,6 @@ const Historytable = () => {
     mytransationtype[]
   >([]);
   const [, setSelectedDate] = useState("");
-  const [, setOpen] = useState(false);
 
   myAuth();
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -86,6 +85,7 @@ const Historytable = () => {
     }
   }
 
+  //Change Transaction Types
   function changeoption(e: SelectChangeEvent<string>) {
     const newValue = e.target.value;
 
@@ -99,6 +99,7 @@ const Historytable = () => {
     }
   }
 
+  //Change Categrory Types
   function changcatagory(e: SelectChangeEvent<string>) {
     const newValue = e.target.value;
 
@@ -112,6 +113,25 @@ const Historytable = () => {
     }
   }
 
+
+  //Date Change
+  function handleDateChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const selected = e.target.value;
+    setSelectedDate(selected);
+  
+    if (!selected) {
+      setCoppytransactions(transactions);
+      return;
+    }
+  
+    const filteredByDate = transactions.filter((txn) =>
+      txn.created_at.startsWith(selected) // assumes `created_at` is in ISO format
+    );
+    setCoppytransactions(filteredByDate);
+  }
+
+
+  //Search Transactions
   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
     const keyword = e.target.value.toLowerCase();
 
@@ -129,6 +149,7 @@ const Historytable = () => {
     }
   }
 
+  //Delete Feature
   function handleDelete(id: string, user_id: string) {
     deleteTransations(id, user_id);
     const deteted = coppytransactions.filter((elm) => elm.id !== id);
@@ -139,25 +160,7 @@ const Historytable = () => {
       theme: "dark",
     });
   }
-
-  function handleDateChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    const selected = e.target.value;
-    setSelectedDate(selected);
   
-    if (!selected) {
-      setCoppytransactions(transactions);
-      return;
-    }
-  
-    const filteredByDate = transactions.filter((txn) =>
-      txn.created_at.startsWith(selected) // assumes `created_at` is in ISO format
-    );
-    setCoppytransactions(filteredByDate);
-  }
-
-  function handleEdit() {
-    setOpen(true);
-  }
 
   const uniquecatagory = Array.from(
     new Set(transactions.map((elm) => elm.categary))
@@ -227,8 +230,6 @@ const Historytable = () => {
           variant="filled"
         />
 
-        
-
         <CSVLink
           data={transactions}
           filename="transactions.csv"
@@ -290,7 +291,7 @@ const Historytable = () => {
                         color: theme.palette.mode === "dark" ? "white" : "gray",
                       }}
                     >
-                      <ModeEditOutlineIcon onClick={handleEdit} />
+                      <ModeEditOutlineIcon  />
                     </Link>
                     <DeleteIcon
                       onClick={() => handleDelete(row.id, row.user_id)}
@@ -326,7 +327,7 @@ const Historytable = () => {
                 <strong>Category:</strong>&nbsp;{elm.categary}
                 <TableCell>
                   <Link href={`history/${elm.user_id}/${elm.id}`}>
-                    <ModeEditOutlineIcon onClick={handleEdit} />
+                    <ModeEditOutlineIcon  />
                   </Link>
                   <DeleteIcon
                     onClick={() => handleDelete(elm.id, elm.user_id)}

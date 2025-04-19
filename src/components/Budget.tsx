@@ -49,7 +49,6 @@ interface mybudgetype {
   user_id: number;
 }
 
-
 export interface totalBugetype {
   budgetAmount: number;
   category: string;
@@ -203,7 +202,6 @@ const Budget = () => {
 
       const budgetgroupedData: { [key: string]: groupkicu } = {};
 
-
       budget.forEach((elm) => {
         const modifiedDate = moment(elm.created_at).format("MMMM YYYY");
         const key = `${elm.category}-${modifiedDate}-${elm.created_at}`;
@@ -221,21 +219,14 @@ const Budget = () => {
         budgetgroupedData[key].total_amount += elm.amount;
       });
 
-
       setFilteredBudget(Object.values(budgetgroupedData));
-
-
     }
 
     makeModifiedBudget();
   }, [budget]);
 
-  console.log(filteredBudget, '🥞🧀🍗')
-
+  
   //Create Analysis data.....................
-
-
-
 
   const {
     register,
@@ -304,8 +295,6 @@ const Budget = () => {
 
 
   myAuth();
-
-  console.log("fdfdfdfsfdsf🍕🍕🍕🍕", filteredBudget)
 
 
   return (

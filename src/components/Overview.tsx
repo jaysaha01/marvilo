@@ -78,6 +78,7 @@ const Overview = () => {
     fetchTransactionData();
   }, []);
 
+  
   //Findout recent month transactions and add modified dateinto the column
   const latestMonth = moment
     .max(transactions.map((t) => moment(t.created_at)))
@@ -88,6 +89,7 @@ const Overview = () => {
       ...t,
       modified_date: moment(t.created_at).format("MMMM YYYY"), // Example: "April 2025 11:00:34"
     }));
+
 
   //Findout icome and expense filtered data
   const incomedata = transactions.filter((elm) => elm.type === "income");
@@ -151,8 +153,8 @@ const Overview = () => {
                 </div>
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
-              <div className="chatbx">
-                <Mybarchart mydata={expensedata} />
+                <div className="chatbx">
+                  <Mybarchart mydata={expensedata} />
                 </div>
               </Grid>
             </Grid>
