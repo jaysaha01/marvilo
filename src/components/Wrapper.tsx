@@ -298,7 +298,7 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
                         component="h2"
                       >
                         {user?.identities && user.identities.length > 0
-                          ? identity?.full_name ||
+                          ? identity?.email ||
                           identity?.email
                           : "User"}
                       </Typography>
